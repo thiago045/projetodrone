@@ -142,5 +142,5 @@ https://drive.google.com/drive/folders/1SbIifeUDNtIDwXhCFXAo1O3NE0bMHk1v
 3-Componentes.
 Foram utilizados motores de 20x7mm com alimentação de 3.7V com caixa de redução e helices fabricados para ser utilizados no drone Syma X5. Para o acionamento foram utilizados mosfets do tipo SMD com resistências de \textit{pull-down} de 10k e diodos ligados em paralelo aos motores para evitar fuga de corrente na parada. O conjunto todo foi alimentado por uma bateria de íons de lítio de 850 mAh 3.7 VCC. A figura abaixo mostra o diagrama esquemático de ligação dos componentes.
 
-![Legenda](url da img)
+![Diagrama esquemático de coneções do projeto](https://github.com/thiago045/projetodrone/blob/master/esquematicoCircuito1819.png)
 
