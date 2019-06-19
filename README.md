@@ -163,7 +163,7 @@ https://drive.google.com/drive/folders/1SbIifeUDNtIDwXhCFXAo1O3NE0bMHk1v
 3-Componentes.
 O controlador utilizado foi a ESP32 modelo Wrom32 com pinagem mostrada na Figura 1. Foram utilizados motores de 20x7mm com alimentação de 3.7V com caixa de redução e helices fabricados para ser utilizados no drone Syma X5. Para o acionamento foram utilizados mosfets do tipo SMD com resistências de \textit{pull-down} de 10k e diodos ligados em paralelo aos motores para evitar fuga de corrente na parada. O conjunto todo foi alimentado por uma bateria de íons de lítio de 850 mAh 3.7 VCC. A Figura 2 abaixo mostra o diagrama esquemático de ligação dos componentes.
 
-![Figura 2: Pinagem ESP32](https://github.com/thiago045/projetodrone/blob/master/esquematicoCircuito1819.png)
+![Figura 2: Pinagem ESP32](https://github.com/thiago045/projetodrone/blob/master/450xN.jpg)
 
 ![Figura 2: Diagrama esquemático de coneções do projeto](https://github.com/thiago045/projetodrone/blob/master/esquematicoCircuito1819.png)
 
