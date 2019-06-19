@@ -6,7 +6,28 @@ Thiago Lima Soares
 
 1-	Código Fonte:
 
-O primeiro passo é realizar a leitura do sensor através do pacote kalman do arduino, ele é capaz de realizar a leitura MPU6050 e filtrar os ruidos da vibração dos motores como mostrado no trecho de código abaixo. Esse trecho de código mostra como é feita parte da obtenção dos angulos finais que serão utilizados para medição da angulação. Os angulos KalAngleX,KalAngleY e KalAngleZ já recebem os valores da fusão do acelerômetro e giroscópio juntamente com filtro de kalman, por isso são as variáveis de referência de posição para os PIDs.
+O primeiro passo é realizar a leitura do sensor através do pacote kalman do arduino, ele é capaz de realizar a leitura MPU6050 e filtrar os ruidos da vibração dos motores como mostrado no trecho de código abaixo. O SCL do MPU foi conectado ao pino D22 da ESP32 e o SDA ao pino D21. A configuração das saídas analógicas foi feita como mostrado no código abaixo. Primeiramente são criadas as variáveis motores que definem o numero do canal. Depois através do comando "ledcAttachPin(pino, canal)" é feita a atribuição de qual canal será ligado a qual pino.
+
+```
+int motor1 = 0, motor2 = 1, motor3 = 2, motor4 = 3;
+
+  ledcAttachPin(13, 0);//Atribuimos o pino 13 ao motor1.
+  ledcSetup(0, 1000, 10);//Atribuimos ao canal 0 a frequencia de 1000Hz com resolucao de 10bits.
+
+  
+  ledcAttachPin(15, 1);//Atribuimos o pino 15 ao motor 2.
+  ledcSetup(1, 1000, 10);//Atribuimos ao canal 1 a frequencia de 1000Hz com resolucao de 10bits.
+
+  ledcAttachPin(23, 2);//Atribuimos o pino 23 ao motor3.
+  ledcSetup(2, 1000, 10);//Atribuimos ao canal 2 a frequencia de 1000Hz com resolucao de 10bits.
+
+  ledcAttachPin(32, 3);//Atribuimos o pino 32 ao motor4.
+  ledcSetup(3, 1000, 10);//Atribuimos ao canal 3 a frequencia de 1000Hz com resolucao de 10bits.
+  
+
+```
+
+O trecho de código abaixo mostra como é feita parte da obtenção dos angulos finais que serão utilizados para medição da angulação. Os angulos KalAngleX,KalAngleY e KalAngleZ já recebem os valores da fusão do acelerômetro e giroscópio juntamente com filtro de kalman, por isso são as variáveis de referência de posição para os PIDs.
 
 ```
 void KalmanAngles()
@@ -73,7 +94,7 @@ void exePIDx()
 
 ```
 
-Após o calculo dos PIDs é preciso realizar a soma dos dois controladores distribuidos nos 4 motores. Isso é feito pela função "Saida PID". Essa função raliza a soma ou subtração dos PIDs para compor a velocidade dos 4 motores como mostrado no treco de código abaixo e realizar a escrita no PWM da esp 32 através do comando "ledcWrite(canal, velocidade);".
+Após o calculo dos PIDs é preciso realizar a soma dos dois controladores distribuidos nos 4 motores. Isso é feito pela função "Saida PID". Essa função raliza a soma ou subtração dos PIDs para compor a velocidade dos 4 motores como mostrado no treco de código abaixo e realizar a escrita no PWM da esp 32 através do comando "ledcWrite(canal, velocidade);". Atenção para o comando ledcWrite, pois o primeiro parâmetro passado é o numero do canal, não do pino.
 
 ```
  velocidadeMotor1 = velocidade_min - PIDx + PIDy;
@@ -140,7 +161,9 @@ O projeto 3D foi feito no software solid edge e pode ser implementado em uma imp
 https://drive.google.com/drive/folders/1SbIifeUDNtIDwXhCFXAo1O3NE0bMHk1v
 
 3-Componentes.
-Foram utilizados motores de 20x7mm com alimentação de 3.7V com caixa de redução e helices fabricados para ser utilizados no drone Syma X5. Para o acionamento foram utilizados mosfets do tipo SMD com resistências de \textit{pull-down} de 10k e diodos ligados em paralelo aos motores para evitar fuga de corrente na parada. O conjunto todo foi alimentado por uma bateria de íons de lítio de 850 mAh 3.7 VCC. A figura abaixo mostra o diagrama esquemático de ligação dos componentes.
+O controlador utilizado foi a ESP32 modelo Wrom32 com pinagem mostrada na Figura 1. Foram utilizados motores de 20x7mm com alimentação de 3.7V com caixa de redução e helices fabricados para ser utilizados no drone Syma X5. Para o acionamento foram utilizados mosfets do tipo SMD com resistências de \textit{pull-down} de 10k e diodos ligados em paralelo aos motores para evitar fuga de corrente na parada. O conjunto todo foi alimentado por uma bateria de íons de lítio de 850 mAh 3.7 VCC. A Figura 2 abaixo mostra o diagrama esquemático de ligação dos componentes.
 
-![Diagrama esquemático de coneções do projeto](https://github.com/thiago045/projetodrone/blob/master/esquematicoCircuito1819.png)
+![Figura 2: Pinagem ESP32](https://github.com/thiago045/projetodrone/blob/master/esquematicoCircuito1819.png)
+
+![Figura 2: Diagrama esquemático de coneções do projeto](https://github.com/thiago045/projetodrone/blob/master/esquematicoCircuito1819.png)
 
